@@ -19,6 +19,8 @@ PLAYER_X = 'X'
 PLAYER_O = 'O'
 TIED = '-'
 SIZE = 3
+COLUMN_NAMES = ['A', 'B', 'C']
+ROW_NAMES = ['1', '2', '3']
 
 
 class Game:
@@ -33,7 +35,14 @@ class Game:
         else:
             raise IndexError
 
-    def move(self, x, y):
+    def move_by_cell(self, cell_name):
+        if len(cell_name) != 2:
+            raise ValueError
+        x = COLUMN_NAMES.index(cell_name[0])
+        y = ROW_NAMES.index(cell_name[1])
+        return self.move_by_point(x, y)
+
+    def move_by_point(self, x, y):
         if self.cell(x, y) != EMPTY:
             raise ValueError
         if self.winner is not None:
@@ -60,3 +69,11 @@ class Game:
                 [[self.cell(i, i) for i in range(SIZE)]] +
                 [[self.cell(i, SIZE-i-1) for i in range(SIZE)]]
                 )
+
+    def validSelections(self):
+        return [
+            COLUMN_NAMES[x] + ROW_NAMES[y]
+            for x in range(SIZE)
+            for y in range(SIZE)
+            if self.cell(x, y) == EMPTY
+        ]

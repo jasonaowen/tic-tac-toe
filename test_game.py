@@ -31,62 +31,64 @@ class TestGame(unittest.TestCase):
 
     def test_first_player_is_x(self):
         game = Game()
-        game = game.move(0, 0)
+        game = game.move_by_point(0, 0)
         self.assertEqual(PLAYER_X, game.cell(0, 0))
 
     def test_second_player_is_o(self):
-        game = Game().move(0, 0).move(0, 1)
+        game = Game().move_by_point(0, 0).move_by_point(0, 1)
         self.assertEqual(PLAYER_O, game.cell(0, 1))
 
     def test_third_player_is_x_again(self):
-        game = Game().move(0, 0).move(0, 1).move(0, 2)
+        game = (Game().move_by_point(0, 0)
+                      .move_by_point(0, 1)
+                      .move_by_point(0, 2))
         self.assertEqual(PLAYER_X, game.cell(0, 2))
 
     def test_cannot_move_in_taken_position(self):
         with self.assertRaises(ValueError):
-            Game().move(0, 0).move(0, 0)
+            Game().move_by_point(0, 0).move_by_point(0, 0)
 
     def test_can_win_game_vertically(self):
-        game = (Game().move(0, 0)
-                      .move(2, 2)
-                      .move(0, 1)
-                      .move(2, 1)
-                      .move(0, 2))
+        game = (Game().move_by_point(0, 0)
+                      .move_by_point(2, 2)
+                      .move_by_point(0, 1)
+                      .move_by_point(2, 1)
+                      .move_by_point(0, 2))
         self.assertEqual(PLAYER_X, game.winner)
         with self.assertRaises(ValueError):
-            game.move(1, 1)
+            game.move_by_point(1, 1)
 
     def test_can_win_game_horizontally(self):
-        game = (Game().move(0, 0)
-                      .move(2, 2)
-                      .move(1, 0)
-                      .move(1, 2)
-                      .move(2, 0))
+        game = (Game().move_by_point(0, 0)
+                      .move_by_point(2, 2)
+                      .move_by_point(1, 0)
+                      .move_by_point(1, 2)
+                      .move_by_point(2, 0))
         self.assertEqual(PLAYER_X, game.winner)
         with self.assertRaises(ValueError):
-            game.move(1, 1)
+            game.move_by_point(1, 1)
 
     def test_can_win_game_diagonally(self):
-        game = (Game().move(0, 2)
-                      .move(0, 0)
-                      .move(1, 0)
-                      .move(1, 1)
-                      .move(0, 1)
-                      .move(2, 2))
+        game = (Game().move_by_point(0, 2)
+                      .move_by_point(0, 0)
+                      .move_by_point(1, 0)
+                      .move_by_point(1, 1)
+                      .move_by_point(0, 1)
+                      .move_by_point(2, 2))
         self.assertEqual(PLAYER_O, game.winner)
         with self.assertRaises(ValueError):
-            game.move(2, 1)
+            game.move_by_point(2, 1)
 
     def test_can_tie_game(self):
-        game = (Game().move(0, 0)   # X
-                      .move(0, 1)   # O
-                      .move(0, 2)   # X
-                      .move(1, 1)   # O
-                      .move(1, 0)   # X
-                      .move(1, 2)   # O
-                      .move(2, 1)   # X
-                      .move(2, 0)   # O
-                      .move(2, 2))  # X
+        game = (Game().move_by_point(0, 0)   # X
+                      .move_by_point(0, 1)   # O
+                      .move_by_point(0, 2)   # X
+                      .move_by_point(1, 1)   # O
+                      .move_by_point(1, 0)   # X
+                      .move_by_point(1, 2)   # O
+                      .move_by_point(2, 1)   # X
+                      .move_by_point(2, 0)   # O
+                      .move_by_point(2, 2))  # X
         self.assertEqual(TIED, game.winner)
 
 

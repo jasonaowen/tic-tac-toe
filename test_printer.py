@@ -33,7 +33,7 @@ class TestPrinter(unittest.TestCase):
         self.assertEqual(expected, printGame(game))
 
     def test_one_move(self):
-        game = Game().move(0, 0)
+        game = Game().move_by_point(0, 0)
         expected = '\n'.join([
                 " X |   |   ",
                 "---+---+---",
@@ -44,7 +44,7 @@ class TestPrinter(unittest.TestCase):
         self.assertEqual(expected, printGame(game))
 
     def test_two_moves(self):
-        game = Game().move(0, 0).move(1, 0)
+        game = Game().move_by_point(0, 0).move_by_point(1, 0)
         expected = '\n'.join([
                 " X | O |   ",
                 "---+---+---",
@@ -55,15 +55,15 @@ class TestPrinter(unittest.TestCase):
         self.assertEqual(expected, printGame(game))
 
     def test_tied_game(self):
-        game = (Game().move(0, 0)   # X
-                      .move(0, 1)   # O
-                      .move(0, 2)   # X
-                      .move(1, 1)   # O
-                      .move(1, 0)   # X
-                      .move(1, 2)   # O
-                      .move(2, 1)   # X
-                      .move(2, 0)   # O
-                      .move(2, 2))  # X
+        game = (Game().move_by_point(0, 0)   # X
+                      .move_by_point(0, 1)   # O
+                      .move_by_point(0, 2)   # X
+                      .move_by_point(1, 1)   # O
+                      .move_by_point(1, 0)   # X
+                      .move_by_point(1, 2)   # O
+                      .move_by_point(2, 1)   # X
+                      .move_by_point(2, 0)   # O
+                      .move_by_point(2, 2))  # X
         expected = '\n'.join([
                 " X | O | X ",
                 "---+---+---",
@@ -74,11 +74,11 @@ class TestPrinter(unittest.TestCase):
         self.assertEqual(TIED, game.winner)
 
     def test_x_wins(self):
-        game = (Game().move(0, 0)   # X
-                      .move(2, 2)   # O
-                      .move(0, 1)   # X
-                      .move(2, 1)   # O
-                      .move(0, 2))  # X
+        game = (Game().move_by_point(0, 0)   # X
+                      .move_by_point(2, 2)   # O
+                      .move_by_point(0, 1)   # X
+                      .move_by_point(2, 1)   # O
+                      .move_by_point(0, 2))  # X
         expected = '\n'.join([
                 " X | X | X ",
                 "---+---+---",
@@ -89,12 +89,12 @@ class TestPrinter(unittest.TestCase):
         self.assertEqual(PLAYER_X, game.winner)
 
     def test_o_wins(self):
-        game = (Game().move(0, 0)   # X
-                      .move(2, 2)   # O
-                      .move(1, 1)   # X
-                      .move(2, 1)   # O
-                      .move(0, 2)   # X
-                      .move(2, 0))  # O
+        game = (Game().move_by_point(0, 0)   # X
+                      .move_by_point(2, 2)   # O
+                      .move_by_point(1, 1)   # X
+                      .move_by_point(2, 1)   # O
+                      .move_by_point(0, 2)   # X
+                      .move_by_point(2, 0))  # O
         expected = '\n'.join([
                 " X |   | X ",
                 "---+---+---",
