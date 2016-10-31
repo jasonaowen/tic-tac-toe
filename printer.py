@@ -14,7 +14,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from game import Game, EMPTY, PLAYER_X, PLAYER_O, TIED, SIZE
+from game import (Game,
+                  PLAYER_X, PLAYER_O,
+                  EMPTY, TIED,
+                  SIZE,
+                  COLUMN_NAMES, ROW_NAMES)
+
+ROW_DIVIDER = "   ---+---+---"
 
 
 def printGame(game):
@@ -25,12 +31,20 @@ def printGame(game):
 
 def printBoard(game):
     return '\n'.join([
-        " {} | {} | {} ",
-        "---+---+---",
-        " {} | {} | {} ",
-        "---+---+---",
-        " {} | {} | {} "
-    ]).format(*[cell for row in game.cells for cell in row])
+        printHeader(COLUMN_NAMES),
+        printRow(ROW_NAMES[0], game.cells[0]),
+        ROW_DIVIDER,
+        printRow(ROW_NAMES[1], game.cells[1]),
+        ROW_DIVIDER,
+        printRow(ROW_NAMES[2], game.cells[2]),
+    ])
+
+
+def printHeader(column_names):
+    return "    {}   {}   {} ".format(*column_names)
+
+def printRow(rowName, cells):
+    return " {}  {} | {} | {} ".format(*([rowName] + cells))
 
 
 def printState(game):
