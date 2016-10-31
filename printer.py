@@ -14,15 +14,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from game import Game, EMPTY, PLAYER_X, PLAYER_O, SIZE
+from game import Game, EMPTY, PLAYER_X, PLAYER_O, TIED, SIZE
 
 
 def printGame(game):
+    board = printBoard(game)
+    state = printState(game)
+    return '\n'.join([board, state])
+
+
+def printBoard(game):
     return '\n'.join([
         " {} | {} | {} ",
         "---+---+---",
         " {} | {} | {} ",
         "---+---+---",
-        " {} | {} | {} ",
-        "It is {}'s turn"
-    ]).format(*[cell for row in game.cells for cell in row] + [game.player])
+        " {} | {} | {} "
+    ]).format(*[cell for row in game.cells for cell in row])
+
+
+def printState(game):
+    if game.winner is not None and game.winner != TIED:
+        return "{} won!".format(game.winner)
+    elif game.winner == TIED:
+        return "Tied game!"
+    else:
+        return "It is {}'s turn".format(game.player)

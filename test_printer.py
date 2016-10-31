@@ -16,7 +16,7 @@
 
 import unittest
 
-from game import Game, EMPTY, PLAYER_X, PLAYER_O, SIZE
+from game import Game, EMPTY, PLAYER_X, PLAYER_O, TIED, SIZE
 from printer import printGame
 
 
@@ -53,3 +53,53 @@ class TestPrinter(unittest.TestCase):
                 "   |   |   ",
                 "It is X's turn"])
         self.assertEqual(expected, printGame(game))
+
+    def test_tied_game(self):
+        game = (Game().move(0, 0)   # X
+                      .move(0, 1)   # O
+                      .move(0, 2)   # X
+                      .move(1, 1)   # O
+                      .move(1, 0)   # X
+                      .move(1, 2)   # O
+                      .move(2, 1)   # X
+                      .move(2, 0)   # O
+                      .move(2, 2))  # X
+        expected = '\n'.join([
+                " X | O | X ",
+                "---+---+---",
+                " X | O | O ",
+                "---+---+---",
+                " O | X | X ",
+                "Tied game!"])
+        self.assertEqual(TIED, game.winner)
+
+    def test_x_wins(self):
+        game = (Game().move(0, 0)   # X
+                      .move(2, 2)   # O
+                      .move(0, 1)   # X
+                      .move(2, 1)   # O
+                      .move(0, 2))  # X
+        expected = '\n'.join([
+                " X | X | X ",
+                "---+---+---",
+                "   |   |   ",
+                "---+---+---",
+                "   | O | O ",
+                "X won!"])
+        self.assertEqual(PLAYER_X, game.winner)
+
+    def test_o_wins(self):
+        game = (Game().move(0, 0)   # X
+                      .move(2, 2)   # O
+                      .move(1, 1)   # X
+                      .move(2, 1)   # O
+                      .move(0, 2)   # X
+                      .move(2, 0))  # O
+        expected = '\n'.join([
+                " X |   | X ",
+                "---+---+---",
+                "   | X |   ",
+                "---+---+---",
+                " O | O | O ",
+                "O won!"])
+        self.assertEqual(PLAYER_O, game.winner)
