@@ -45,3 +45,34 @@ class TestGame(unittest.TestCase):
     def test_cannot_move_in_taken_position(self):
         with self.assertRaises(ValueError):
             Game().move(0, 0).move(0, 0)
+
+    def test_can_win_game_vertically(self):
+        game = (Game().move(0, 0)
+                      .move(2, 2)
+                      .move(0, 1)
+                      .move(2, 1)
+                      .move(0, 2))
+        self.assertEqual(PLAYER_X, game.winner)
+        with self.assertRaises(ValueError):
+            game.move(1, 1)
+
+    def test_can_win_game_horizontally(self):
+        game = (Game().move(0, 0)
+                      .move(2, 2)
+                      .move(1, 0)
+                      .move(1, 2)
+                      .move(2, 0))
+        self.assertEqual(PLAYER_X, game.winner)
+        with self.assertRaises(ValueError):
+            game.move(1, 1)
+
+    def test_can_win_game_diagonally(self):
+        game = (Game().move(0, 2)
+                      .move(0, 0)
+                      .move(1, 0)
+                      .move(1, 1)
+                      .move(0, 1)
+                      .move(2, 2))
+        self.assertEqual(PLAYER_O, game.winner)
+        with self.assertRaises(ValueError):
+            game.move(2, 1)

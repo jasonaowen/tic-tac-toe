@@ -24,6 +24,7 @@ class Game:
     def __init__(self, state=None, player=PLAYER_X):
         self.cells = state or [[SPACE_EMPTY] * SIZE for i in range(SIZE)]
         self.player = player
+        self.winner = self.calculate_winner()
 
     def cell(self, x, y):
         if x in range(SIZE) and y in range(SIZE):
@@ -34,9 +35,25 @@ class Game:
     def move(self, x, y):
         if self.cell(x, y) != SPACE_EMPTY:
             raise ValueError
+        if self.winner is not None:
+            raise ValueError
 
         return Game(state=[
             [self.player if (x, y) == (col, row) else self.cell(col, row)
                 for col in range(SIZE)] for row in range(SIZE)],
             player=PLAYER_O if self.player == PLAYER_X else PLAYER_X
         )
+
+    def calculate_winner(self):
+        for potentially_winning_sequence in self.sequences():
+            cell_set = set(potentially_winning_sequence)
+            if len(cell_set) == 1 and SPACE_EMPTY not in cell_set:
+                return cell_set.pop()
+        return None
+
+    def sequences(self):
+        return ([[self.cell(x, y) for x in range(SIZE)] for y in range(SIZE)]
+              + [[self.cell(x, y) for y in range(SIZE)] for x in range(SIZE)]
+              + [[self.cell(i, i) for i in range(SIZE)]]
+              + [[self.cell(i, SIZE-i-1) for i in range(SIZE)]]
+          )
