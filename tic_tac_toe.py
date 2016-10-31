@@ -24,7 +24,9 @@ def main():
 
     while game.winner is None:
         validSelections = game.validSelections()
-        selection = input("Move {}: ".format(validSelections + ["exit"]))
+        selection = input(
+            "Move {}: ".format(validSelections + ["exit"])
+        ).upper()
         if selection in validSelections:
             game = game.move_by_cell(selection)
         elif selection == "exit":

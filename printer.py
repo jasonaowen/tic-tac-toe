@@ -43,6 +43,7 @@ def printBoard(game):
 def printHeader(column_names):
     return "    {}   {}   {} ".format(*column_names)
 
+
 def printRow(rowName, cells):
     return " {}  {} | {} | {} ".format(*([rowName] + cells))
 
