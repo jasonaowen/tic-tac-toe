@@ -88,3 +88,7 @@ class TestGame(unittest.TestCase):
                       .move(2, 0)   # O
                       .move(2, 2))  # X
         self.assertEqual(TIED, game.winner)
+
+
+if __name__ == '__main__':
+    unittest.main()

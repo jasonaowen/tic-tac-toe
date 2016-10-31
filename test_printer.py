@@ -103,3 +103,7 @@ class TestPrinter(unittest.TestCase):
                 " O | O | O ",
                 "O won!"])
         self.assertEqual(PLAYER_O, game.winner)
+
+
+if __name__ == '__main__':
+    unittest.main()
