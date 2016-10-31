@@ -16,7 +16,7 @@
 
 import unittest
 
-from game import Game, SPACE_EMPTY, PLAYER_X, PLAYER_O, SIZE
+from game import Game, EMPTY, PLAYER_X, PLAYER_O, TIED, SIZE
 
 
 class TestGame(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestGame(unittest.TestCase):
     def test_new_game_has_empty_board(self):
         game = Game()
         for (x, y) in [(x, y) for x in range(SIZE) for y in range(SIZE)]:
-            self.assertEqual(SPACE_EMPTY, game.cell(x, y))
+            self.assertEqual(EMPTY, game.cell(x, y))
 
     def test_first_player_is_x(self):
         game = Game()
@@ -76,3 +76,15 @@ class TestGame(unittest.TestCase):
         self.assertEqual(PLAYER_O, game.winner)
         with self.assertRaises(ValueError):
             game.move(2, 1)
+
+    def test_can_tie_game(self):
+        game = (Game().move(0, 0)   # X
+                      .move(0, 1)   # O
+                      .move(0, 2)   # X
+                      .move(1, 1)   # O
+                      .move(1, 0)   # X
+                      .move(1, 2)   # O
+                      .move(2, 1)   # X
+                      .move(2, 0)   # O
+                      .move(2, 2))  # X
+        self.assertEqual(TIED, game.winner)

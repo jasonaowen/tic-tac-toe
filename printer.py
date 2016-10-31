@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from game import Game, SPACE_EMPTY, PLAYER_X, PLAYER_O, SIZE
+from game import Game, EMPTY, PLAYER_X, PLAYER_O, SIZE
 
 
 def printGame(game):

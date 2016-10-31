@@ -16,7 +16,7 @@
 
 import unittest
 
-from game import Game, SPACE_EMPTY, PLAYER_X, PLAYER_O, SIZE
+from game import Game, EMPTY, PLAYER_X, PLAYER_O, SIZE
 from printer import printGame
 
 
