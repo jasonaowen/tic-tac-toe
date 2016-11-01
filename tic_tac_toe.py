@@ -29,7 +29,7 @@ def main():
         ).upper()
         if selection in validSelections:
             game = game.move_by_cell(selection)
-        elif selection == "exit":
+        elif selection == "EXIT":
             return
         else:
             print("Invalid selection!")
